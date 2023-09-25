@@ -17,6 +17,8 @@ static int simpleInstruction(const char* name, int offset){
 
 static int constantInstruction(const char* name, Chunk* chunk, int offset) {
   uint8_t constant = chunk->code[offset + 1];
+  // name is opcode
+  // constant is the index(memory spot) spot for the value in the constants array
   printf("%-16s 0X%04X '", name, constant);
   printValue(chunk->constants.values[constant]);
   printf("'\n");

@@ -12,7 +12,11 @@ void initChunk(Chunk* chunk){
     chunk->lines = NULL;
 }
 
-
+/*
+adds a byte of code to the chuck of memory
+It increase the size of chuck by 2 if there is no space left
+it adds the byte and its line number to the arrays
+*/
 void writeChunk(Chunk* chunk, uint8_t byte, int line){
     if(chunk->size + 1 >= chunk->capacity){
         int oldCap = chunk->capacity;
@@ -25,7 +29,9 @@ void writeChunk(Chunk* chunk, uint8_t byte, int line){
     chunk->lines[chunk->size] = line;
     chunk->size++;
 }
-
+/*
+frees the chuck by deallocating the arrays
+*/
 void freeChunk(Chunk* chunk){
     FREE_ARRAY(uint8_t, chunk->code, chunk->capacity);
     FREE_ARRAY(int, chunk->lines, chunk->capacity);
@@ -33,7 +39,6 @@ void freeChunk(Chunk* chunk){
 }
 
 int addConstant(Chunk* chunk, Value value){
-    printf("test");
-    writeValueArray(&chunk->constants, value);
+    writeValueArray(&chunk->constants, value); // writes the value to constant array
     return chunk->constants.size -1; // returns the index of the value
 }
